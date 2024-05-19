@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-10px);
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+            font-weight: 700;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 16px;
+            color: #555;
+        }
+        input {
+            width: calc(100% - 22px);
+            margin: 5px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        .result p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Submit Operation</h1>
+        <form id="operationForm">
+            <label for="a">A:</label>
+            <input type="number" step="any" id="a" name="a" required>
+            <br>
+            <label for="b">B:</label>
+            <input type="number" step="any" id="b" name="b" required>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('operationForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const a = parseFloat(document.getElementById('a').value);
+            const b = parseFloat(document.getElementById('b').value);
+
+            const operations = ['add', 'subtract', 'multiply', 'divide'];
+            const results = {};
+
+            for (const operation of operations) {
+                const response = await fetch(`http://127.0.0.1:8000/${operation}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ a, b })
+                });
+                const data = await response.json();
+                results[operation] = data.result ?? data.error ?? 0;
+            }
+
+            document.getElementById('result').innerHTML = `
+                <p>Tổng: ${results.add}</p>
+                <p>Hiệu: ${results.subtract}</p>
+                <p>Tích: ${results.multiply}</p>
+                <p>Thương: ${results.divide}</p>
+            `;
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Call Example</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #dataDisplay {
+            width: 80%;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+        li {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 2fr 1fr; /* Đảm bảo các cột có kích thước cố định */
+            padding: 8px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-sizing: border-box; /* Bao gồm cả padding và border trong kích thước */
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+        .info {
+            padding: 0 10px;
+            border-right: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box; /* Bao gồm cả padding và border trong kích thước */
+            overflow: hidden; /* Ẩn phần văn bản tràn */
+            text-overflow: ellipsis; /* Thêm dấu "..." khi văn bản tràn */
+            white-space: nowrap; /* Không cho phép xuống dòng */
+        }
+        .info:last-child {
+            border-right: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <button id="fetchButton">Lấy danh sách người dùng</button>
+    </div>
+    <div id="dataDisplay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+

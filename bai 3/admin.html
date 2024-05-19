@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+        .admin-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+            font-weight: 700;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Trang quản trị</h1>
+        <table>
+            <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Tuổi</th>
+                <th>Địa chỉ</th>
+                <th>SDT</th>
+                <th>Email</th>
+                <th>Lớp học</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Nguyễn Văn A</td>
+                <td>20</td>
+                <td>Hà Nội</td>
+                <td>0123456789</td>
+                <td>email@example.com</td>
+                <td>10A1</td>
+            </tr>
+            <!-- Thêm các dòng khác tại đây -->
+        </table>
+    </div>
+
+    <script>
+        async function fetchStudents() {
+            const response = await fetch('http://127.0.0.1:8000/students');
+            const students = await response.json();
+            const table = document.querySelector('table');
+            students.forEach(student => {
+                const row = table.insertRow();
+                Object.values(student).forEach(text => {
+                    const cell = row.insertCell();
+                    cell.textContent = text;
+                });
+            });
+        }
+
+        fetchStudents();
+    </script>
+</body>
+</html>
+
